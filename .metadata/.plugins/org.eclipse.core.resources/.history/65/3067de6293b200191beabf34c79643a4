@@ -1,8 +1,0 @@
-server.port=9008
-spring.application.name=spring-eureka-config-server
-spring.security.user.name=root
-spring.security.user.password=password
-
-spring.cloud.config.server.git.uri=https://github.com/liufeng2311/shrio.git
-spring.cloud.config.server.git.searchPaths=20190729
-spring.cloud.config.label=master

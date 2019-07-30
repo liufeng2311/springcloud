@@ -1,8 +1,0 @@
-server.port=9004
-spring.application.name=spring-eureka-feign
-spring.security.user.name=root
-spring.security.user.password=password
-eureka.client.serviceUrl.defaultZone=http://localhost:9001/eureka/
-
-#fegin默认不开启断路由功能，需要我们在此设置打开
-feign.hystrix.enabled=true
