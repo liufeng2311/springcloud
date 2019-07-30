@@ -24,6 +24,8 @@
 		<module>spring-eureka-ribbon</module>
 		<module>spring-eureka-feign</module>
 		<module>spring-eureka-zuuls</module>
+		<module>spring-eureka-config-server</module>
+		<module>spring-eureka-config-client</module>
 	</modules>
 
 	<properties>
