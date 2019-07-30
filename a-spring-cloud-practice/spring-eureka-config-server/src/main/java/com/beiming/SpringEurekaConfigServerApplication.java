@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @SpringBootApplication
-@EnableEurekaClient  //不需要注册到服务中心
+@EnableEurekaClient
 @EnableConfigServer
 @RestController
 public class SpringEurekaConfigServerApplication {
