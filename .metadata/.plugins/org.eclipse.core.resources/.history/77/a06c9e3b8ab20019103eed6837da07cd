@@ -1,0 +1,21 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:9001/eureka/
+server:
+  port: 9007
+spring:
+  application:
+    name: spring-eureka-zuul
+  security:
+    user:
+      name: root
+      password: password
+zuul:
+  routes:
+    fegin:
+      path: /fegin
+      serviceId: spring-eureka-fegin
+    ribbon:
+      path: /fegin
+      serviceId: spring-eureka-ribbon

@@ -1,0 +1,17 @@
+package com.beiming;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RestController;
+
+
+@SpringBootApplication
+//@EnableEurekaClient  //不需要注册到服务中心
+@RestController
+public class SpringEurekaConfigClientApplication {
+
+	public static void main(String[] args) {
+		
+		SpringApplication.run(SpringEurekaConfigClientApplication.class, args);
+	}
+}

@@ -1,0 +1,10 @@
+server.port=9007
+spring.application.name=spring-eureka-zuul
+spring.security.user.name=root
+spring.security.user.password=password
+eureka.client.serviceUrl.defaultZone=http://localhost:9001/eureka/
+zuul.routes.fegin.path= /fegin
+zuul.routes.fegin.serviceId = spring-eureka-fegin
+
+zuul.routes.ribbon.path= /fegin
+zuul.routes.ribbon.serviceId = spring-eureka-ribbon

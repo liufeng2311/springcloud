@@ -1,0 +1,5 @@
+spring.application.name=spring-eureka-config-client
+spring.cloud.config.label=master
+spring.cloud.config.profile=dev
+spring.cloud.config.uri= http://localhost:9008/
+server.port=9009
