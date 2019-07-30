@@ -9,7 +9,7 @@
 		<list key="name">
 		</list>
 		<list key="artifactId">
-			<item value="spring-eureka-feign"/>
+			<item value="spring-eureka-zuuls"/>
 			<item value="spring-eureka-server"/>
 		</list>
 		<list key="projectNameTemplate">
@@ -70,6 +70,7 @@
 	</section>
 	<section name="MavenModuleWizardParentPage">
 		<list key="moduleName">
+			<item value="spring-eureka-zuuls"/>
 			<item value="spring-eureka-feign"/>
 			<item value="spring-eureka-ribbon"/>
 			<item value="spring-eureka-client"/>
@@ -111,6 +112,7 @@
 			<item value="com.beiming"/>
 		</list>
 		<list key="artifactId">
+			<item value="spring-eureka-zuuls"/>
 			<item value="spring-eureka-feign"/>
 			<item value="spring-eureka-ribbon"/>
 			<item value="spring-eureka-client"/>

@@ -6,9 +6,9 @@
 <item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/spring-eureka-client" type="4"/>
 <item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/spring-eureka-server" type="4"/>
 <item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/spring-eureka-ribbon" type="4"/>
+<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/spring-eureka-zuul" type="4"/>
 <item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/a-spring-cloud-practice" type="4"/>
 <item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/spring-eureka-feign" type="4"/>
-<item factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/spring-eureka-zuul" type="4"/>
 </workingSet>
 <workingSet aggregate="true" factoryID="org.eclipse.ui.internal.WorkingSetFactory" id="1562551115152_2" label="Window Working Set" name="Aggregate for window 1562551115152"/>
 </workingSetManager>
