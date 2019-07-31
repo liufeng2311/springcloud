@@ -1,0 +1,25 @@
+server:
+  port: 9013
+
+spring:
+  application:
+    name: spring-eureka-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true    #自动为每个服务创建过滤，我们的请求路径为 ip:port/serviceName/path,当我们自定义转发路径时，可以设置此处为false
+          lowerCaseServiceId: true   #服务名转小写
+      routes:
+      - id: service-hi
+        uri: lb://SPRING-EUREKA-CLIENT
+        predicates:
+          - Path=/service-hi/**
+        filters:
+          - StripPrefix=1  #gateway默认的是全路径转发，即将predicates里的path全路径转发至我们指定的服务里，StripPrefix=1表示二级路径转发
+
+          
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9001/eureka/
