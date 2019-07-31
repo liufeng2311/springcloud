@@ -11,7 +11,6 @@ import reactor.core.publisher.Mono;
 
 /**
  *代码配置路由
- *此处不起作用，未解决   //url路径定义为服务名则可以
  *
  */
 @Configuration
@@ -24,8 +23,8 @@ public class GatewayConfig {
 		return builder.routes()
 				.route("client",p -> p
 						.path("/client/**")
-						.filters(f -> f.addRequestHeader("Hello", "World"))
-						.uri("lb://SPRING-EUREKA-CLIENT"))  //该属性只需要规定域名或者ip+port，
+						.filters(f -> f.addRequestHeader("Hello", "World").stripPrefix(2))
+						.uri("http://localhost:9003"))  //必须是协议+地址 +端口 或者服务名 lb://SPRING-EUREKA-CLIENT  lb表示协议，采用负载均衡
 				.route("ribbon",p -> p
 						.path("/ribbon/**")
 						.filters(f -> f

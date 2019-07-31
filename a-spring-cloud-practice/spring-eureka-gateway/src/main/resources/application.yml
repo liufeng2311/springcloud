@@ -8,15 +8,30 @@ spring:
     gateway:
       discovery:
         locator:
-          enabled: true    #自动为每个服务创建过滤，我们的请求路径为 ip:port/serviceName/path,当我们自定义转发路径时，可以设置此处为false
-          lowerCaseServiceId: true   #服务名转小写
-      routes:
-      - id: service-hi
+          enabled: true                                                      #自动为每个服务创建过滤，我们的请求路径为 ip:port/serviceName/path,当我们自定义转发路径时，可以设置此处为false
+          lowerCaseServiceId: true                                           #服务名转小写
+      routes:                                                                #定义我们的route，采用优先匹配原则，即一个请求匹配多个route时，只有第一个生效
+      - id: service-hi                                                       #route的名字
+        uri: lb://SPRING-EUREKA-CLIENT                                       #匹配断言和过滤之后转发的服务名，lb表示负载均衡
+        predicates:                                                          #断言，匹配所有的断言才会进入filter
+          - Path=/service-hi/**                                              #通过路径匹配，可以使用/app/{***}正则来写
+          - After=2017-01-20T17:42:47.789-07:00[America/Denver]              #通过时间断言 After表示这个时间之后，Before表示这个时间之前可以通过，Between 表示某个时间段之内
+          - Header=token, \d+                                                #通过请求的header断言，hearer中必须含有指定的参数和值，值可以是正则表达式，例如：必须有token参数，值必须为数字，
+          - Cookie=name, forezp                                              #通过cookie断言，类似header
+          - Host=**.fangzhipeng.com                                          #通过host断言，可以实现IP过滤
+          - Method=GET                                                       #通过请求参数断言
+          - Query=foo, ba.                                                   #通过请求的参数断言，类似header，可以只传一个参数key就行， - Query=foo
+        filters:                                                             #filter的类型可以是pre，即方法调用前之前，也可以是post。方法执行后调用
+          - StripPrefix=1                                                    #gateway默认的是全路径转发，即将predicates里的path全路径转发至我们指定的服务里，StripPrefix=1表示二级路径转发
+          - PrefixPath=/app                                                  #在我们的路径前拼接/app路径
+          - AddRequestHeader=X-Request-Foo, Bar                              #添加header信息
+          - RewritePath=/foo/test, /app/foo                                  #重写路径，将我们的/foo/test改为/app/foo
+      - id: service-ribbon                                                   #定义第二个routes
         uri: lb://SPRING-EUREKA-CLIENT
         predicates:
-          - Path=/service-hi/**
+          - Path=/service/**
         filters:
-          - StripPrefix=1  #gateway默认的是全路径转发，即将predicates里的path全路径转发至我们指定的服务里，StripPrefix=1表示二级路径转发
+          - StripPrefix=2
 
           
 eureka:
