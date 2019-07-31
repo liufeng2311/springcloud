@@ -11,7 +11,7 @@ import reactor.core.publisher.Mono;
 
 /**
  *代码配置路由
- *此处不起作用，未解决 
+ *此处不起作用，未解决   //url路径定义为服务名则可以
  *
  */
 @Configuration
@@ -25,14 +25,14 @@ public class GatewayConfig {
 				.route("client",p -> p
 						.path("/client/**")
 						.filters(f -> f.addRequestHeader("Hello", "World"))
-						.uri("localhost:9003"))  //该属性只需要规定域名或者ip+port，
+						.uri("lb://SPRING-EUREKA-CLIENT"))  //该属性只需要规定域名或者ip+port，
 				.route("ribbon",p -> p
 						.path("/ribbon/**")
 						.filters(f -> f
 								.hystrix(config -> config
 										.setName("hystrix")
 										.setFallbackUri("forward:/fallback")))
-						.uri("localhost:9003"))
+						.uri("lb://SPRING-EUREKA-CLIENT"))
 				.build();
 	}
 
