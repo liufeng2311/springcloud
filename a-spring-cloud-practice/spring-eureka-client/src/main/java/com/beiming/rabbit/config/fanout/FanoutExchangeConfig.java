@@ -10,44 +10,44 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class FanoutExchangeConfig {
-	
-	//定义FanoutExchange
-	@Bean
-	public FanoutExchange fanoutExchange() {
-		return new  FanoutExchange("fanout-exchange");
-	}
-	
-	
-	//定义队列queue-one,queue-two,queue-three
-	@Bean
-	public Queue queueOne() {
-		return new Queue("fanout-queue-one");
-	}
-	
-	@Bean
-	public Queue queueTwo() {
-		return  new Queue("fanout-queue-two");
-	}
-	
-	@Bean
-	public Queue queueThree() {
-		return new Queue("fanout-queue-three");
-	}
-
-	//定义队列和交换机的绑定关系
-	@Bean
-    public Binding bindingExchangeWithOne() {
-        return BindingBuilder.bind(queueOne()).to(fanoutExchange());
-    }
-	
-	@Bean
-    public Binding bindingExchangeWithTwo() {
-        return BindingBuilder.bind(queueTwo()).to(fanoutExchange());
-    }
-	
-	@Bean
-    public Binding bindingExchangeWithThree() {
-        return BindingBuilder.bind(queueThree()).to(fanoutExchange());
-    }
+//	
+//	//定义FanoutExchange
+//	@Bean
+//	public FanoutExchange fanoutExchange() {
+//		return new  FanoutExchange("fanout-exchange");
+//	}
+//	
+//	
+//	//定义队列queue-one,queue-two,queue-three
+//	@Bean
+//	public Queue queueOne() {
+//		return new Queue("fanout-queue-one");
+//	}
+//	
+//	@Bean
+//	public Queue queueTwo() {
+//		return  new Queue("fanout-queue-two");
+//	}
+//	
+//	@Bean
+//	public Queue queueThree() {
+//		return new Queue("fanout-queue-three");
+//	}
+//
+//	//定义队列和交换机的绑定关系
+//	@Bean
+//    public Binding bindingExchangeWithOne() {
+//        return BindingBuilder.bind(queueOne()).to(fanoutExchange());
+//    }
+//	
+//	@Bean
+//    public Binding bindingExchangeWithTwo() {
+//        return BindingBuilder.bind(queueTwo()).to(fanoutExchange());
+//    }
+//	
+//	@Bean
+//    public Binding bindingExchangeWithThree() {
+//        return BindingBuilder.bind(queueThree()).to(fanoutExchange());
+//    }
 	
 }

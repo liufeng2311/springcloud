@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.beiming.rabbit.producer.DirectProducer;
 import com.beiming.rabbit.producer.FanoutProducer;
 import com.beiming.rabbit.producer.TopicProducer;
 
@@ -17,6 +18,9 @@ public class RabbitController {
 	@Autowired
 	private TopicProducer topicProducer;
 	
+	@Autowired
+	private DirectProducer directProducer;
+	
 	@RequestMapping("/fanout")
 	public void fanoutExchange() {
 		fanoutProducer.produce();
@@ -25,5 +29,10 @@ public class RabbitController {
 	@RequestMapping("/topic")
 	public void topicExchange() {
 		topicProducer.produce();
+	}
+	
+	@RequestMapping("/direct")
+	public void directExchange() {
+		directProducer.produce();
 	}
 }
