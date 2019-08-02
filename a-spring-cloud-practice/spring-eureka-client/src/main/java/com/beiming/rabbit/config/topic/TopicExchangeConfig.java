@@ -35,19 +35,22 @@ public class TopicExchangeConfig {
 	}
 
 	//定义队列和交换机的绑定关系和路由键
+	
+	//路由键用.分割，  
+	//使用topic-one路由键会接收到topic-two和topic-three的消息
 	@Bean
     public Binding bindingExchangeWithOne() {
-        return BindingBuilder.bind(queueOne()).to(topicExchange()).with("topic-one1");
+        return BindingBuilder.bind(queueOne()).to(topicExchange()).with("one");
     }
 	
 	@Bean
     public Binding bindingExchangeWithTwo() {
-		return BindingBuilder.bind(queueTwo()).to(topicExchange()).with("topic-two");
+		return BindingBuilder.bind(queueTwo()).to(topicExchange()).with("two");
     }
 	
 	@Bean
     public Binding bindingExchangeWithThree() {
-		return BindingBuilder.bind(queueThree()).to(topicExchange()).with("topic-three");
+		return BindingBuilder.bind(queueThree()).to(topicExchange()).with("three");
     }
 	
 }

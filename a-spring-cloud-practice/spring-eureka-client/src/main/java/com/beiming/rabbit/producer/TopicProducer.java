@@ -11,7 +11,7 @@ public class TopicProducer {
 	private AmqpTemplate template;   //此处采用单例模式引入
 	
 	public void produce() {
-		template.convertAndSend("topic-exchange", "topic-two", "Hello, rabbitMQ , this is topic");  //该模式下第二个参数为路由键
+		template.convertAndSend("topic-exchange", "three", "Hello, rabbitMQ , this is topic");  //该模式下第二个参数为路由键
 	}
 
 }
