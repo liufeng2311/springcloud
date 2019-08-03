@@ -6,6 +6,10 @@
 	符号"#"匹配一个或多个词，符号"*"匹配不多不少一个词,此处的只单词而非字符，比如audit.#能够匹配到audit.irs.corporate,但是audit.* 只会匹配到audit.irs。
 3.DirectExchange(完全匹配)
 	tong二，但是采用的完全匹配的方式，不能使用通配符
+	
+4.RabbitMQ默认的ExChange消息类型是direct，而且不用自己配置交换机exchange、路由键routing-key及bind信息。发送消息amqpTemplate.convertAndSend(routingKey, data)时，
+将队列名字作为routing-key和消息一块发送。在consumer监听相应队列即可。
+
 
 
 
