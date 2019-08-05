@@ -3,20 +3,60 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.beiming.mybatis.mapper.UserMapper">
 
+	<!-- 单表查询两次比两张表关联效果高，所以解决N+1的办法采用延时加载 -->
+
+
+	<!-- 第一步作为查询的入口,将结果的值映射到resultMap中 -->
 	<select id="getUserInfo" resultMap="baseMap">
-	select * from user where username = #{username}
+		select * from user where username = #{username}
 	</select>
-	
+	<!-- 第二步 如果定义的type值不是我们数据库对应的实体类，则ID无法自动映射，需要我们手动设置,其余属性自动映射-->
+	<!-- 第三步 association 必须定义在collection值上，否则编译报错,association中select属性定义了新的查询，新查询可以使用第一步返回的结果，使用column属性进行传递，多个参数时，传递如下column="{id,name}",等同于"{id=id,name=name},key代表下个sql用的值，value值第一个sql查询出的列"-->
 	<resultMap id="baseMap" type="com.beiming.mybatis.bean.responsedto.UserResponseDTO">
-<!-- 		<id column="id" jdbcType="INTEGER" property="id" />
-    	<result column="username" jdbcType="VARCHAR" property="username" />
-    	<result column="password" jdbcType="VARCHAR" property="password" />
-    	<result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" /> -->
-    	<association property="relation" select="getRelationByUser" column="id">
+		<id column="id" jdbcType="INTEGER" property="id" />  <!--UserResponseDTO没有和表对应，需要我们我们在此赋值  -->
+		<id column="username" property="username" />
+    	<association property="relation" select="getRoleRelation" fetchType="lazy" column="{id=id,username=username}">   <!-- column往下传递时，不许在resultmap中定义，不可使用快速赋值 -->
     	</association>
+    	<collection property="roleRelation" select="getAuthRelation"  fetchType="lazy" column="id">
+    	</collection>
 	</resultMap>
 	
-	<select id="getRelationByUser" resultType="com.beiming.mybatis.bean.RoleAuthRelation">
-	select * from role_auth_relation where id = #{id}
+	<select id="getAuthRelation" resultType="com.beiming.mybatis.bean.entity.RoleAuthRelation">
+	select * from role_auth_relation where role_id = #{id}
 	</select>
+	
+	<select id="getRoleRelation" resultType="com.beiming.mybatis.bean.entity.UserRoleRelation">
+	select * from user_role_relation where sys_user_id = #{id} or  sys_user_id = #{username} 
+	</select>
+	
+	
+	<!-- 上述查询会存在N+1问题，我们可以通过一条sql查询出所有信息，使用resultMap接受，这种方式所有的属性都需要赋值，不会自动赋值 -->
+	<select id="getUserAllInfo" resultMap="allResultMap">
+	select u.* , 
+	au.id as authId , au.role_id , au.permission_id,
+	ro.id as roleId , ro.sys_user_id , ro.sys_role_id
+	from user u 
+	left join role_auth_relation au on u.id = au.role_id 
+	left join user_role_relation ro on u.id = ro.sys_user_id 
+	where 
+	u.username = #{username}
+	</select>
+	
+	<resultMap id="allResultMap"  type="com.beiming.mybatis.bean.responsedto.UserResponseDTO">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="username" property="username"/>
+		<result column="password" property="password"/>
+		<result column="version" property="version"/>
+		<result column="updatetime" property="updatetime"/>
+		<association property="relation" javaType="com.beiming.mybatis.bean.entity.UserRoleRelation" >   <!-- 一对一用javaType-->
+		<id column="roleId" property="id"/>
+		<result column="sys_user_id" property="sysUserId"/>
+		<result column="sys_role_id" property="sysRoleId"/>
+    	</association>
+    	<collection property="roleRelation" ofType="com.beiming.mybatis.bean.entity.RoleAuthRelation">   <!-- 一对多用ofType-->
+    	<id column="authId" property="id"/>
+    	<result column="role_id" property="roleId"/>
+		<result column="permission_id" property="permissionId"/>
+    	</collection>
+	</resultMap>
 </mapper>

@@ -1,4 +1,4 @@
-package com.beiming.mybatis.bean;
+package com.beiming.mybatis.bean.entity;
 
 import java.util.Date;
 

@@ -1,13 +1,16 @@
 package com.beiming.mybatis.bean.responsedto;
 
 import java.util.Date;
+import java.util.List;
 
-import com.beiming.mybatis.bean.RoleAuthRelation;
+import com.beiming.mybatis.bean.base.BaseObject;
+import com.beiming.mybatis.bean.entity.RoleAuthRelation;
+import com.beiming.mybatis.bean.entity.UserRoleRelation;
 
 import lombok.Data;
 
 @Data
-public class UserResponseDTO {
+public class UserResponseDTO extends BaseObject{
 
 	private Integer id;
 	
@@ -19,5 +22,7 @@ public class UserResponseDTO {
 	
 	private Date updatetime;
 	
-	private RoleAuthRelation relation;
+	private UserRoleRelation relation;
+	
+	private List<RoleAuthRelation> roleRelation;
 }
