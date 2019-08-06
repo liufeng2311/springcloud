@@ -15,9 +15,9 @@
 	<resultMap id="baseMap" type="com.beiming.mybatis.bean.responsedto.UserResponseDTO">
 		<id column="id" jdbcType="INTEGER" property="id" />  <!--UserResponseDTO没有和表对应，需要我们我们在此赋值  -->
 		<id column="username" property="username" />
-    	<association property="relation" select="getRoleRelation" fetchType="lazy" column="{id=id,username=username}">   <!-- column往下传递时，不许在resultmap中定义，不可使用快速赋值 -->
+    	<association property="relation" select="getRoleRelation"  column="{id=id,username=username}">   <!-- column往下传递时，不许在resultmap中定义，不可使用快速赋值 -->
     	</association>
-    	<collection property="roleRelation" select="getAuthRelation"  fetchType="lazy" column="id">
+    	<collection property="roleRelation" select="getAuthRelation"   column="id" >
     	</collection>
 	</resultMap>
 	
