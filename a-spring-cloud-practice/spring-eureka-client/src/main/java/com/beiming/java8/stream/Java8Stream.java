@@ -1,4 +1,4 @@
-package com.beiming.stream;
+package com.beiming.java8.stream;
 
 import java.util.ArrayList;
 import java.util.Arrays;
