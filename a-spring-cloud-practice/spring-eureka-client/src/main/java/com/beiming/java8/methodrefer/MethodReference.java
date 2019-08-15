@@ -6,4 +6,7 @@ package com.beiming.java8.methodrefer;
  */
 public class MethodReference {
 	
+	private void mian() {
+		
+	}
 }
