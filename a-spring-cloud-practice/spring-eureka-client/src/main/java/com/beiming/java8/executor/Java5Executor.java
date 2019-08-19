@@ -14,8 +14,21 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Java5Executor {
 	public static void main(String[] args) {
 		//使用Executors工具类创建线程池
-		ExecutorService pool = Executors.newFixedThreadPool(3);
-		ExecutorService newSingleThreadExecutor = Executors.newSingleThreadExecutor();
+		System.out.println("=============创建固定大小的线程池================");
+		ExecutorService pool = Executors.newFixedThreadPool(3);   //使用LinkedBlockingQueue队列
+		Executors.newFixedThreadPool(3, Executors.defaultThreadFactory());
+		System.out.println("=============创建带有缓存的线程池================");
+		Executors.newCachedThreadPool();  //使用TransferQueue队列，线程空闲时间为60秒
+		Executors.newCachedThreadPool(Executors.defaultThreadFactory());
+		System.out.println("=============创建带有定时任务的线程池================");
+		Executors.newScheduledThreadPool(3); //使用DelayedWorkQueue队列
+		Executors.newScheduledThreadPool(3, Executors.defaultThreadFactory());
+		System.out.println("=============创建单个线程的线程池================");
+		Executors.newSingleThreadExecutor();//使用LinkedBlockingQueue队列
+		Executors.newSingleThreadExecutor(Executors.defaultThreadFactory());
+		Executors.newSingleThreadScheduledExecutor();
+		Executors.newSingleThreadScheduledExecutor(Executors.defaultThreadFactory());
+		
 		
 		Thread ta = new Thread(() -> System.out.println(Thread.currentThread().getName()),"Thread-1");
 		Thread tb = new Thread(() -> System.out.println(Thread.currentThread().getName()),"Thread-2");
