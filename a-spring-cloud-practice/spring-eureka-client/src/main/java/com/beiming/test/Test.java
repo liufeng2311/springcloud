@@ -1,15 +1,23 @@
 package com.beiming.test;
 
+import java.io.File;
+
+import com.alibaba.fastjson.JSON;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Test {
 	
 	public static void main(String[] args) {
-		doubleBreak();
-		System.out.println("=====================");
-		doubleContinue();
-		System.out.println("=====================");
-		doubleBreakTo();
-		System.out.println("=====================");
-		doubleContinueTo();
+//		doubleBreak();
+//		System.out.println("=====================");
+//		doubleContinue();
+//		System.out.println("=====================");
+//		doubleBreakTo();
+//		System.out.println("=====================");
+//		doubleContinueTo();
+		fileTest();
 	}
 	
 	
@@ -59,4 +67,30 @@ public class Test {
 			}
 		}
 	}
+	
+	public static void fileTest() {
+		File file = new File("213123");
+		 boolean exists = file.exists();
+		 System.out.println(exists);
+	}
+	
+	public String generateRequestParamMethod(GenerateRequestParamModel paramModel) {
+	    try {
+	    	//编码后的铭文s1
+	      String paramModelKey = RSAUtil.byte2Base64(JSON.toJSONString(paramModel).getBytes());
+	      //生成128位随机AES密钥key
+	      String aesKey = RSAUtil.generateAes();
+	      //使用RSA公钥加密后生成cKey 
+	      String cKey = RSAUtil.encrypt(aesKey);
+	      String cStr = RSAUtil.AESEncode(aesKey, paramModelKey);
+	      log.info("cStr info:  {}", cStr);
+	      GenerateParamKeyModel keyModel = new GenerateParamKeyModel(cStr, cKey);
+	      String parameter = RSAUtil.byte2Base64(JSON.toJSONString(keyModel).getBytes());
+	      log.info("加密后参数 parameter info:  {}", parameter);
+	      return parameter;
+	    } catch (Exception e) {
+	      e.printStackTrace();
+	    }
+	    return null;
+	  }
 }
