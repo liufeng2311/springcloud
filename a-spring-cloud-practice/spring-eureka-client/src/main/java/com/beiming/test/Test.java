@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Test {
 	
+	private static volatile int state;
 	public static void main(String[] args) {
 //		doubleBreak();
 //		System.out.println("=====================");
@@ -17,7 +18,9 @@ public class Test {
 //		doubleBreakTo();
 //		System.out.println("=====================");
 //		doubleContinueTo();
-		fileTest();
+//		fileTest();
+		System.out.println(state);
+		System.out.println(state+1);
 	}
 	
 	
